@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+
+    <link href="styles/bootstrap.css" rel="stylesheet" />
+    <link href="styles/k.css" rel="stylesheet" />
+    <link href="styles/jquery.qtip.css" rel="stylesheet" />
+    <style>
+        #map
+        {
+            height: 100%;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #map div{
+            width:80%;
+        }
+
+        html, body
+        {
+            height: 100%;
+        }
+        
+    </style>
+
+    <script src="scripts/jquery-1.9.1.js"></script>
+    <script src="scripts/raphael-min.js"></script>
+    <script src="scripts/kartograph.min.js"></script>
+    <script src="scripts/chroma.min.js"></script>
+    <script src="scripts/jquery.qtip.min.js"></script>
+</head>
+<body>
+    <div id="map">
+    </div>
+    <script>
+        var stateCapitals = {},
+            darkShade = '#999',
+            lightShade = '#e3e3e0',
+            myMap = myWeatherMap("maps-data/usa-map.svg");
+
+        function myWeatherMap(mapPath, lName) {
+            var map = $K.map('#map');
+            map.loadMap(mapPath, function () {
+                //display map with basic styling
+                map.addLayer('usa', {
+                    styles: {
+                        'stroke-width': '0.2pt',
+                        'stroke-linejoin': 'round',
+                        stroke: '#BBB',
+                        fill: lightShade//'#f3f3f0'
+                    },
+
+                });
+
+            }).done(function () {
+                //addName(map);
+                getCapitals();
+            });
+
+            return map;
+        }
+
+        function addName(myMap, cityData) {
+            //display state on its boundary
+            try {
+                myMap.addSymbols({
+                    type: $K.Label,
+                    data: [cityData],
+                    location: function (d) { return [d.primary_longitude - 1.6, d.primary_latitude - 0.6] },
+                    style: 'font-size:.75em;font-family:Arial;',
+                    text: function (d) { return d.state_abbreviation; }
+                });
+            } catch (e) {
+                console.log(e);
+                console.log('failed when adding names');
+            }
+            try {
+                myMap.addSymbols({
+                    type: $K.Bubble,
+                    data: [cityData],
+                    location: function (d) {
+                        return [d.primary_longitude, d.primary_latitude]
+                    },
+                    radius: function (d) {
+                        return 2;
+                    },
+                    text: function (d) {
+                        return d.name;
+                    },
+                    tooltip: function (d) {
+                        var a = [d.name, 'fetching weather data...'];
+                        return a;
+                    },
+                    style: 'stroke-width:3px;stroke-opacity:0.01;fill:#800;fill-opacity: 0.2;',//'fill:rgba(200,0,0,0.5);stroke:none;',//
+
+                });
+            } catch (e) {
+                console.log(e);
+                console.log('failed when adding bubble');
+            }
+
+        }
+        
+        function getCapitals() {
+            var jqXhr = $.ajax({
+                url: 'stateCapitals/capitalDetails.json',
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'json'
+            }).done(function (data) {
+                if (Array.isArray(data)) {
+                    data.forEach(function (city, index, cities) {
+                        //console.log(city);
+                        //getWeatherData(city);
+                        addName(myMap, city);
+
+                        //store city data in the object
+                        stateCapitals[city.name] = city;
+
+                        city.logWeatherData = (function () {
+                            return function (data) {
+                                city.weatherData = data;
+                                city.updateDisplay();
+                            };
+                        })();
+
+                        city.updateDisplay = function () {                            
+                            var description = '',
+                                content;
+                            if (this.qTipId) {
+                                description = this.weatherData.weather[0].description;
+                                content = $('#' + this.qTipId + '>:last-child').text(description);
+                            }
+                        }
+
+                        city.getWeatherData = function () {
+                            var path = 'http://api.openweathermap.org/data/2.5/weather?APPID=614b6692f7d2c0590eaf8ce3ee893075';
+                            //http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139
+                            //http://openweathermap.org/data/2.3/forecast/city?id=524901&APPID=1111111111
+                            //api.openweathermap.org/data/2.5/weather?q=Sacramento&callback=test
+
+                            path += path + '&lat=' + this['primary_latitude'] +
+                                '&lon=' + this['primary_longitude'];
+
+                            getJSONP(path, this.logWeatherData);
+                        };
+
+                    });
+                }
+                
+                $('circle').hover(mouseEnterCapital, mouseLeaveCapital);
+                $('path').hover(function (e) {                    
+                    $(this).attr('fill', darkShade);
+                }, function (e) {
+                    if (e.toElement.nodeName !== 'circle') {
+                        $(this).attr('fill', lightShade);
+                    }
+                });
+            });
+        }
+        function mouseLeaveCapital(e) {
+        }
+
+        function mouseEnterCapital(e) {
+            
+            // Enable the passage of the 'this' object through the JavaScript timers
+            var __nativeST__ = window.setTimeout, __nativeSI__ = window.setInterval;
+
+            window.setTimeout = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
+                var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
+                return __nativeST__(vCallback instanceof Function ? function () {
+                    vCallback.apply(oThis, aArgs);
+                } : vCallback, nDelay);
+            };
+
+            window.setInterval = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
+                var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
+                return __nativeSI__(vCallback instanceof Function ? function () {
+                    vCallback.apply(oThis, aArgs);
+                } : vCallback, nDelay);
+            };
+
+            var getTipDetails = (function () {
+                //get the event source e.target
+                //find its aria-describedby attribute set as value for 'q'            
+                return function () {
+                    console.log(intervalId);
+                    var qTipId = $(e.target).attr('aria-describedby');
+                    if (qTipId) {                        
+                        window.clearInterval(intervalId);
+                        
+                        //get element by id q
+                        //get handle of last child (content)- if the content of this is a pre-defined string then            
+                        var content = $('#' + qTipId + '>:last-child');
+                        var hasWeatherData = (content.text().indexOf('fetching') === -1);
+
+                        if (hasWeatherData) {
+                            //means weather data is already present so no need to query again
+                        } else {
+                            //get handle of last but one child (title) - read the text content
+                            //based on this value - get the city's lat/long
+                            //trigger an ajax call to get weather data
+                            //once the data is retrieved update the (content) node with relevant data
+                            //change the background of the tooltip to reflect completion of the ajax query. 
+                            var cityName = $('#' + qTipId + ' >:nth-last-child(2)>:first-child').text(),
+                                city = stateCapitals[cityName];
+
+                            city.qTipId = qTipId;
+                            city.getWeatherData();
+                        }
+                    }
+                }
+            })();
+            
+            var intervalId = setInterval(getTipDetails, 100);
+        }
+
+
+        //Make a JSONP request to the specified URL and pass the parsed response
+        //data to the specified callback. Add a query parameter named 'jsonp' to
+        //the URL to specify the name of the callback function for the request.
+        function getJSONP(url, callback) {
+            //Create a unique callback name for the this request
+            var cbNum = 'cb' + getJSONP.counter++;//Increment counter each time
+            var cbName = 'getJSONP.' + cbNum;//As property of this function
+
+            //Add the callback name to the URL query string using form-encoding
+            //we use the parameter name 'jsonp'. Some JSONP-enabled services 
+            //may require a different parameter name , such as 'callback'.
+
+            if (url.indexOf('?') === -1) { //URL doesn't have a query section yet
+                url += '?callback=' + cbName;//add parameter as the query section
+            } else {//Otherwise when URL has a query section
+                url += '&callback=' + cbName;//add it as a new parameter
+            }
+
+            //Create the script element that will send this request
+            var script = document.createElement('script');
+
+            //Define the callback function that will be invoked by the script
+            getJSONP[cbNum] = function (response) {
+                try {
+                    //console.log(response);
+                    callback(response);//Handle the response data                   
+                } finally {
+                    delete getJSONP[cbNum];//Delete this function
+                    script.parentNode.removeChild(script);
+                }
+            };
+
+            //Now trigger the HTTP request
+            script.src = url;                   //Set the url
+            document.body.appendChild(script);  //Add it to the document
+        }
+        getJSONP.counter = 0;//A counter we use to create unique callback names.
+
+    </script>
+</body>
+</html>

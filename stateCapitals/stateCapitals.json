@@ -1,0 +1,252 @@
+﻿[
+    {
+        'abbr': "AL",
+        'state': "Alabama",
+        'capital': "Montgomery"
+    },
+    {
+        'abbr': "AK",
+        'state': "Alaska",
+        'capital': "Juneau"
+    },
+    {
+        'abbr': "AZ",
+        'state': "Arizona",
+        'capital': "Phoenix"
+    },
+    {
+        'abbr': "AR",
+        'state': "Arkansas",
+        'capital': "Little Rock"
+    },
+    {
+        'abbr': "CA",
+        'state': "California",
+        'capital': "Sacramento"
+    },
+    {
+        'abbr': "CO",
+        'state': "Colorado",
+        'capital': "Denver"
+    },
+    {
+        'abbr': "CT",
+        'state': "Connecticut",
+        'capital': "Hartford"
+    },
+    {
+        'abbr': "DE",
+        'state': "Delaware",
+        'capital': "Dover"
+    },
+    {
+        'abbr': "FL",
+        'state': "Florida",
+        'capital': "Tallahassee"
+    },
+    {
+        'abbr': "GA",
+        'state': "Georgia",
+        'capital': "Atlanta"
+    },
+    {
+        'abbr': "HI",
+        'state': "Hawaii",
+        'capital': "Honolulu"
+    },
+    {
+        'abbr': "ID",
+        'state': "Idaho",
+        'capital': "Boise"
+    },
+    {
+        'abbr': "IL",
+        'state': "Illinois",
+        'capital': "Springfield"
+    },
+    {
+        'abbr': "IN",
+        'state': "Indiana",
+        'capital': "Indianapolis"
+    },
+    {
+        'abbr': "IA",
+        'state': "Iowa",
+        'capital': "Des Moines"
+    },
+    {
+        'abbr': "KS",
+        'state': "Kansas",
+        'capital': "Topeka"
+    },
+    {
+        'abbr': "KY",
+        'state': "Kentucky",
+        'capital': "Frankfort"
+    },
+    {
+        'abbr': "LA",
+        'state': "Louisiana",
+        'capital': "Baton Rouge"
+    },
+    {
+        'abbr': "ME",
+        'state': "Maine",
+        'capital': "Augusta"
+    },
+    {
+        'abbr': "MD",
+        'state': "Maryland",
+        'capital': "Annapolis"
+    },
+    {
+        'abbr': "MA",
+        'state': "Massachusetts",
+        'capital': "Boston"
+    },
+    {
+        'abbr': "MI",
+        'state': "Michigan",
+        'capital': "Lansing"
+    },
+    {
+        'abbr': "MN",
+        'state': "Minnesota",
+        'capital': "Saint Paul"
+    },
+    {
+        'abbr': "MS",
+        'state': "Mississippi",
+        'capital': "Jackson"
+    },
+    {
+        'abbr': "MO",
+        'state': "Missouri",
+        'capital': "Jefferson City"
+    },
+    {
+        'abbr': "MT",
+        'state': "Montana",
+        'capital': "Helena"
+    },
+    {
+        'abbr': "NE",
+        'state': "Nebraska",
+        'capital': "Lincoln"
+    },
+    {
+        'abbr': "NV",
+        'state': "Nevada",
+        'capital': "Carson City"
+    },
+    {
+        'abbr': "NH",
+        'state': "New Hampshire",
+        'capital': "Concord"
+    },
+    {
+        'abbr': "NJ",
+        'state': "New Jersey",
+        'capital': "Trenton"
+    },
+    {
+        'abbr': "NM",
+        'state': "New Mexico",
+        'capital': "Santa Fe"
+    },
+    {
+        'abbr': "NY",
+        'state': "New York",
+        'capital': "Albany"
+    },
+    {
+        'abbr': "NC",
+        'state': "North Carolina",
+        'capital': "Raleigh"
+    },
+    {
+        'abbr': "ND",
+        'state': "North Dakota",
+        'capital': "Bismarck"
+    },
+    {
+        'abbr': "OH",
+        'state': "Ohio",
+        'capital': "Columbus"
+    },
+    {
+        'abbr': "OK",
+        'state': "Oklahoma",
+        'capital': "Oklahoma City"
+    },
+    {
+        'abbr': "OR",
+        'state': "Oregon",
+        'capital': "Salem"
+    },
+    {
+        'abbr': "PA",
+        'state': "Pennsylvania",
+        'capital': "Harrisburg"
+    },
+    {
+        'abbr': "RI",
+        'state': "Rhode Island",
+        'capital': "Providence"
+    },
+    {
+        'abbr': "SC",
+        'state': "South Carolina",
+        'capital': "Columbia"
+    },
+    {
+        'abbr': "SD",
+        'state': "South Dakota",
+        'capital': "Pierre"
+    },
+    {
+        'abbr': "TN",
+        'state': "Tennessee",
+        'capital': "Nashville"
+    },
+    {
+        'abbr': "TX",
+        'state': "Texas",
+        'capital': "Austin"
+    },
+    {
+        'abbr': "UT",
+        'state': "Utah",
+        'capital': "Salt Lake City"
+    },
+    {
+        'abbr': "VT",
+        'state': "Vermont",
+        'capital': "Montpelier"
+    },
+    {
+        'abbr': "VA",
+        'state': "Virginia",
+        'capital': "Richmond"
+    },
+    {
+        'abbr': "WA",
+        'state': "Washington",
+        'capital': "Olympia"
+    },
+    {
+        'abbr': "WV",
+        'state': "West Virginia",
+        'capital': "Charleston"
+    },
+    {
+        'abbr': "WI",
+        'state': "Wisconsin",
+        'capital': "Madison"
+    },
+    {
+        'abbr': "WY",
+        'state': "Wyoming",
+        'capital': "Cheyenne"
+    }
+]

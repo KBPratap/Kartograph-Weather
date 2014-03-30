@@ -1,0 +1,35 @@
+[
+	{
+		"county_name":"Sacramento",
+		"description":null,
+		"feat_class":"Populated Place",
+		"feature_id":"1645",
+		"fips_class":"C1",
+		"fips_county_cd":"67",
+		"full_county_name":"Sacramento County",
+		"link_title":null,
+		"url":"http:\/\/www.cityofsacramento.org\/",
+		"name":"Sacramento",
+		"primary_latitude":"38.58",
+		"primary_longitude":"-121.49",
+		"state_abbreviation":"CA",
+		"state_name":"California"
+	},
+
+	{
+		"county_name":"Thurston",
+		"description":null,
+		"feat_class":"Populated Place",
+		"feature_id":"34219",
+		"fips_class":"C1",
+		"fips_county_cd":"67",
+		"full_county_name":"Thurston County",
+		"link_title":null,
+		"url":"http:\/\/olympiawa.gov\/",
+		"name":"Olympia",
+		"primary_latitude":"47.03",
+		"primary_longitude":"-122.9",
+		"state_abbreviation":"WA",
+		"state_name":"Washington"
+	}
+]
